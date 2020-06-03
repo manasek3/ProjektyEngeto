@@ -42,7 +42,6 @@ while uzivatel.get(username) != password:
 else:
     print(oddelovac)
 
-
 print("We have", len(texts), "texts to be analyzed")
 volba = int((input("Enter a number btw. 1 and 3 to select: ")))
 

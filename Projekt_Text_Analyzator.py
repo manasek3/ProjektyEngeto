@@ -43,17 +43,16 @@ else:
     print(oddelovac)
 
 print("We have", len(texts), "texts to be analyzed")
-volba = int((input("Enter a number btw. 1 and 3 to select: ")))
+volba = input("Enter a number btw. 1 and 3 to select: ")
 
-while volba not in range(1,4):
-    print("Wrong text number! Try again")
-    volba = int((input("Enter a number btw. 1 and 3 to select: ")))
+while not volba.isnumeric() or int(volba) not in range(1,4):
+    print("Invalid input! Try again")
+    volba = input("Enter a number btw. 1 and 3 to select: ")
 else:
+    volba = int(volba)
     print(oddelovac)
 
-text1_list = [slova.strip(".,") for slova in texts[0].split()]
-text2_list = [slova.strip(".,") for slova in texts[1].split()]
-text3_list = [slova.strip(".,") for slova in texts[2].split()]
+text_list = [slova.strip(".,") for slova in texts[volba-1].split()]
 text_pocet_title = 0
 text_pocet_upper = 0
 text_pocet_lower = 0
@@ -61,64 +60,31 @@ text_pocet_numeric = 0
 soucet_cisel_text = 0
 dict_graph = {}
 
-if volba == 1:
-    print("There are", len(text1_list), "words in the selected text.")
-    for i in text1_list:
+for i in text_list:
 
-        if i.istitle():
-            text_pocet_title += 1
+    if i.istitle():
+        text_pocet_title += 1
 
-        elif i.isupper():
-            text_pocet_upper += 1
+    elif i.isupper():
+        text_pocet_upper += 1
 
-        elif i.islower():
-            text_pocet_lower += 1
+    elif i.islower():
+        text_pocet_lower += 1
 
-        elif i.isnumeric():
-            text_pocet_numeric += 1
-            soucet_cisel_text += float(i)
+    elif i.isnumeric():
+        text_pocet_numeric += 1
+        soucet_cisel_text += float(i)
 
-    for _ in text1_list:
-        dict_graph[len(_)] = dict_graph.setdefault(len(_), 0) + 1
+for i in text_list:
+    dict_graph[len(i)] = dict_graph.setdefault(len(i), 0) + 1
 
-if volba == 2:
-    print("There are", len(text2_list), "words in the selected text.")
-    for i in text2_list:
-
-        if i.istitle():
-            text_pocet_title += 1
-        elif i.isupper():
-            text_pocet_upper += 1
-        elif i.islower():
-            text_pocet_lower += 1
-        elif i.isnumeric():
-            text_pocet_numeric += 1
-            soucet_cisel_text += float(i)
-
-    for _ in text2_list:
-        dict_graph[len(_)] = dict_graph.setdefault(len(_), 0) + 1
-
-if volba == 3:
-    print("There are", len(text3_list), "words in the selected text.")
-    for i in text3_list:
-
-        if i.istitle():
-            text_pocet_title += 1
-        elif i.isupper():
-            text_pocet_upper += 1
-        elif i.islower():
-            text_pocet_lower += 1
-        elif i.isnumeric():
-            text_pocet_numeric += 1
-            soucet_cisel_text += float(i)
-
-    for _ in text3_list:
-        dict_graph[len(_)] = dict_graph.setdefault(len(_), 0) + 1
-
-print("There are", text_pocet_title, "titlecase words.")
-print("There are", text_pocet_upper, "uppercase words.")
-print("There are", text_pocet_lower,"lowercase words.")
-print("There are", text_pocet_numeric,"numeric strings.")
+print(f"""
+There are {len(text_list)} words in the selected text.
+There are {text_pocet_title} titlecase words.
+There are {text_pocet_upper} uppercase words.
+There are {text_pocet_lower} lowercase words
+There are {text_pocet_numeric} numeric strings.
+""")
 print(oddelovac)
 
 for klic, hodnota in sorted(dict_graph.items()):

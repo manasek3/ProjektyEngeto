@@ -1,4 +1,9 @@
-uzivatel = {"bob": "123", "ann": "pass123", "mike": "password123", "liz": "pass123"}
+uzivatel = {
+    "bob": "123",
+    "ann": "pass123",
+    "mike": "password123",
+    "liz": "pass123"
+}
 oddelovac = "-" * 50
 texts = ['''
 Situated about 10 miles west of Kemmerer, 
@@ -61,6 +66,7 @@ soucet_cisel_text = 0
 dict_graph = {}
 
 for i in text_list:
+    dict_graph[len(i)] = dict_graph.setdefault(len(i), 0) + 1
 
     if i.istitle():
         text_pocet_title += 1
@@ -75,8 +81,7 @@ for i in text_list:
         text_pocet_numeric += 1
         soucet_cisel_text += float(i)
 
-for i in text_list:
-    dict_graph[len(i)] = dict_graph.setdefault(len(i), 0) + 1
+
 
 print(f"""
 There are {len(text_list)} words in the selected text.
